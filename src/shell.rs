@@ -23,6 +23,18 @@ pub struct UShell<S, A, H, const CMD_LEN: usize> {
     history_on: bool,
 }
 
+impl<S, A, H, const CMD_LEN: usize> AsRef<S> for UShell<S, A, H, CMD_LEN> {
+    fn as_ref(&self) -> &S {
+        &self.serial
+    }
+}
+
+impl<S, A, H, const CMD_LEN: usize> AsMut<S> for UShell<S, A, H, CMD_LEN> {
+    fn as_mut(&mut self) -> &mut S {
+        &mut self.serial
+    }
+}
+
 impl<S, A, H, const CMD_LEN: usize> UShell<S, A, H, CMD_LEN>
 where
     S: serial::Read<u8> + serial::Write<u8>,
